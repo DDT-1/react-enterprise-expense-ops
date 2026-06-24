@@ -1,0 +1,29 @@
+{
+  "name": "enterprise-expense-ops",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "React + TypeScript + PHP + MySQL 企业费用报销与预算审批平台，支持员工申请、财务审核、管理员账号管理、预算看板和费用分析。",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "build:report": "npm run build && node tools/build_report.mjs",
+    "perf:ledger": "npm run build:report && node tools/ledger_perf_benchmark.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "lucide-react": "^0.468.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  }
+}

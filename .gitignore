@@ -1,0 +1,38 @@
+# Dependencies and caches
+node_modules/
+.npm-cache/
+
+# Build output
+dist/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Codex/local workspace metadata
+.agents/
+.codex/
+
+# Generated render/output folders
+docx-render-check/
+resume_template_render/
+_render_project_guide/
+_render_project_guide_learning/
+
+# Archived or unrelated practice projects
+archived-projects/
+
+# Personal resume, generated documents, and study notes
+*.docx
+*.pdf
+*.md
+!README.md
+!XAMPP_SETUP.md
+
+# Generated helper scripts not required to run the app
+tools/__pycache__/
+tools/*.py
+
+# Unused local assets
+assets/
