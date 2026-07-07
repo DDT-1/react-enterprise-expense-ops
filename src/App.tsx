@@ -12,7 +12,6 @@ import {
   History,
   LogOut,
   Plus,
-  RotateCcw,
   Save,
   ShieldCheck,
   Trash2,
@@ -27,7 +26,6 @@ import {
   paymentMethodLabels,
   reimbursementCategories,
   roleLabels,
-  sampleEntries,
   statusLabels,
 } from "./constants";
 import { AppSidebar } from "./components/AppSidebar";
@@ -43,11 +41,9 @@ import { getErrorMessage } from "./services/apiClient";
 import { getCurrentUser, login, logout as logoutAccount, register } from "./services/authApi";
 import { saveMonthBudget } from "./services/budgetApi";
 import {
-  clearExpenses,
   createExpense,
   deleteExpense,
   fetchLedger,
-  seedExpenses,
   updateExpenseStatus,
 } from "./services/expenseApi";
 import { createManagedUser, fetchManagedUsers } from "./services/userApi";
@@ -446,13 +442,6 @@ export function App() {
     return canDeleteEntryByRole(currentRole, entry);
   }
 
-  async function clearEntries() {
-    await clearExpenses();
-    setEntries([]);
-    setSelectedEntryId(null);
-    notify(canViewGlobal ? "已清空全部业务数据" : "已清空我的申请");
-  }
-
   async function saveBudget() {
     const value = Number(budgetDraft);
     if (!Number.isFinite(value) || value <= 0) {
@@ -484,20 +473,6 @@ export function App() {
       setApiError(getErrorMessage(error));
     } finally {
       setIsCreatingAccount(false);
-    }
-  }
-
-  async function loadSample() {
-    setIsSubmitting(true);
-    try {
-      await clearEntries();
-      await seedExpenses(sampleEntries);
-      await loadLedger();
-      notify("业务示例已写入数据库");
-    } catch (error) {
-      setApiError(getErrorMessage(error));
-    } finally {
-      setIsSubmitting(false);
     }
   }
 
@@ -582,9 +557,6 @@ export function App() {
           user={user}
           title={roleGuide.title}
           copy={roleGuide.copy}
-          canSeedDemoData={permissions.canSeedDemoData}
-          isSubmitting={isSubmitting}
-          onLoadSample={loadSample}
           onLogout={logout}
         />
 
@@ -817,11 +789,6 @@ export function App() {
             </div>
             <div className="section-actions">
               <span>{isLoadingLedger ? "加载中..." : `${filteredEntries.length} / ${entries.length} 条`}</span>
-              {isAdmin ? (
-                <button className="button compact danger" type="button" onClick={clearEntries}>
-                  清空全局
-                </button>
-              ) : null}
               <button className="button compact" type="button" onClick={exportFilteredEntries} disabled={!filteredEntries.length}>
                 <Download size={15} aria-hidden="true" />
                 导出
@@ -1281,9 +1248,7 @@ function AuthScreen({
                 <span>{roleDraft === "finance" ? "财务邀请码" : roleDraft === "admin" ? "管理员邀请码" : "企业邀请码"}</span>
                 <input
                   value={inviteCode}
-                  placeholder={
-                    roleDraft === "finance" ? "演示：FINANCE2026" : roleDraft === "admin" ? "演示：ADMIN2026" : "演示：EMPLOYEE2026"
-                  }
+                  placeholder="请输入企业发放的邀请码"
                   onChange={(event) => onInviteCodeChange(event.target.value)}
                 />
               </label>
@@ -1293,11 +1258,6 @@ function AuthScreen({
               {authMode === "login" ? "登录并进入工作台" : `创建${roleLabels[roleDraft]}账号`}
             </button>
           </form>
-
-          <div className="setup-note">
-            <strong>第一次运行提示</strong>
-            <span>先在 XAMPP 启动 Apache 和 MySQL，并在 phpMyAdmin 导入 database/schema.sql。演示邀请码：EMPLOYEE2026 / FINANCE2026 / ADMIN2026。</span>
-          </div>
         </section>
       </section>
     </main>

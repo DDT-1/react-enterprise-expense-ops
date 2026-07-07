@@ -24,13 +24,3 @@ export function updateExpenseStatus(id: number, status: RequestStatus, rejectRea
 export function deleteExpense(id: number) {
   return api(`/entries.php?id=${id}`, { method: "DELETE" });
 }
-
-export function clearExpenses() {
-  return api("/entries.php?all=1", { method: "DELETE" });
-}
-
-export async function seedExpenses(entries: Array<Omit<LedgerEntry, "id">>) {
-  for (const entry of entries) {
-    await api("/entries.php", { method: "POST", body: entry });
-  }
-}

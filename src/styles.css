@@ -174,25 +174,6 @@ button {
   background: var(--accent-soft);
 }
 
-.setup-note {
-  margin-top: 16px;
-  padding: 12px;
-  border-radius: 8px;
-  background: var(--surface-soft);
-  display: grid;
-  gap: 5px;
-}
-
-.setup-note strong {
-  font-size: 13px;
-}
-
-.setup-note span {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
 .panel {
   border: 1px solid var(--line);
   border-radius: 8px;

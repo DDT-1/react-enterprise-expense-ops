@@ -6,8 +6,6 @@ export interface RolePermissions {
   canViewGlobalLedger: boolean;
   canManageBudget: boolean;
   canManageUsers: boolean;
-  canSeedDemoData: boolean;
-  canClearGlobalData: boolean;
 }
 
 export const rolePermissions: Record<UserRole, RolePermissions> = {
@@ -17,8 +15,6 @@ export const rolePermissions: Record<UserRole, RolePermissions> = {
     canViewGlobalLedger: false,
     canManageBudget: false,
     canManageUsers: false,
-    canSeedDemoData: false,
-    canClearGlobalData: false,
   },
   finance: {
     canSubmitExpense: false,
@@ -26,8 +22,6 @@ export const rolePermissions: Record<UserRole, RolePermissions> = {
     canViewGlobalLedger: true,
     canManageBudget: true,
     canManageUsers: false,
-    canSeedDemoData: false,
-    canClearGlobalData: false,
   },
   admin: {
     canSubmitExpense: false,
@@ -35,8 +29,6 @@ export const rolePermissions: Record<UserRole, RolePermissions> = {
     canViewGlobalLedger: true,
     canManageBudget: false,
     canManageUsers: true,
-    canSeedDemoData: true,
-    canClearGlobalData: true,
   },
 };
 
