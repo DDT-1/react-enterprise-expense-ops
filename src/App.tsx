@@ -1248,7 +1248,9 @@ function AuthScreen({
                 <span>{roleDraft === "finance" ? "财务邀请码" : roleDraft === "admin" ? "管理员邀请码" : "企业邀请码"}</span>
                 <input
                   value={inviteCode}
-                  placeholder="请输入企业发放的邀请码"
+                  placeholder={
+                    roleDraft === "finance" ? "财务邀请码：FINANCE2026" : roleDraft === "admin" ? "管理员邀请码：ADMIN2026" : "员工邀请码：EMPLOYEE2026"
+                  }
                   onChange={(event) => onInviteCodeChange(event.target.value)}
                 />
               </label>
