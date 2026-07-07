@@ -1161,44 +1161,43 @@ function AuthScreen({
           </div>
           <p>一个模拟真实公司费用流转的内部平台：员工提交报销，财务审核预算，管理员维护账号和角色权限。</p>
 
-          <div className="role-cards">
-            <button
-              className={`role-card ${roleDraft === "employee" ? "is-active" : ""}`}
-              type="button"
-              onClick={() => {
-                onModeChange("register");
-                onRoleChange("employee");
-              }}
-            >
-              <UserRound size={20} aria-hidden="true" />
-              <strong>员工账号</strong>
-              <span>使用企业邀请码注册，提交报销并查看进度</span>
-            </button>
-            <button
-              className={`role-card ${roleDraft === "finance" ? "is-active" : ""}`}
-              type="button"
-              onClick={() => {
-                onModeChange("register");
-                onRoleChange("finance");
-              }}
-            >
-              <Building2 size={20} aria-hidden="true" />
-              <strong>财务账号</strong>
-              <span>需要财务邀请码，审核报销和维护预算</span>
-            </button>
-            <button
-              className={`role-card ${roleDraft === "admin" ? "is-active" : ""}`}
-              type="button"
-              onClick={() => {
-                onModeChange("register");
-                onRoleChange("admin");
-              }}
-            >
-              <ShieldCheck size={20} aria-hidden="true" />
-              <strong>管理员账号</strong>
-              <span>需要管理员邀请码，创建账号并管理角色</span>
-            </button>
-          </div>
+          {authMode === "login" ? (
+            <div className="role-card auth-note-card">
+              <BadgeCheck size={20} aria-hidden="true" />
+              <strong>登录不用选择角色</strong>
+              <span>输入已注册的用户名和密码，系统会自动进入对应的员工、财务或管理员工作台。</span>
+            </div>
+          ) : (
+            <div className="role-cards">
+              <button
+                className={`role-card ${roleDraft === "employee" ? "is-active" : ""}`}
+                type="button"
+                onClick={() => onRoleChange("employee")}
+              >
+                <UserRound size={20} aria-hidden="true" />
+                <strong>员工账号</strong>
+                <span>需要企业邀请码，提交报销并查看进度</span>
+              </button>
+              <button
+                className={`role-card ${roleDraft === "finance" ? "is-active" : ""}`}
+                type="button"
+                onClick={() => onRoleChange("finance")}
+              >
+                <Building2 size={20} aria-hidden="true" />
+                <strong>财务账号</strong>
+                <span>需要财务邀请码，审核报销和维护预算</span>
+              </button>
+              <button
+                className={`role-card ${roleDraft === "admin" ? "is-active" : ""}`}
+                type="button"
+                onClick={() => onRoleChange("admin")}
+              >
+                <ShieldCheck size={20} aria-hidden="true" />
+                <strong>管理员账号</strong>
+                <span>需要管理员邀请码，创建账号并管理角色</span>
+              </button>
+            </div>
+          )}
         </div>
 
         <section className="auth-card">
